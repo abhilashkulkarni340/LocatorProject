@@ -10,4 +10,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">OFFERS</string>
+    <string name="register_lgn">REGISTER</string>
+    <string name="name_rgstr">Name..</string>
+    <string name="email_rgstr">Email..</string>
+    <string name="phone_num_rgstr">Phone Number..</string>
+    <string name="username_rgstr">Username..</string>
+    <string name="password_rgstr">Password..</string>
 </resources>
