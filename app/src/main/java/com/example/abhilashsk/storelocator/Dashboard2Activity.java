@@ -47,8 +47,11 @@ public class Dashboard2Activity extends AppCompatActivity
         String username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME);
         String password = intent.getStringExtra(LoginActivity.EXTRA_PASSWORD);
 
-        TextView display = findViewById(R.id.display_text);
-        display.setText("WELCOME "+username);
+//        TextView username_tv = findViewById(R.id.username_text);
+//        TextView email_tv = findViewById(R.id.email_text);
+//        username_tv.setText(username);
+//        email_tv.setText(password);
+
     }
 
     @Override
@@ -96,10 +99,6 @@ public class Dashboard2Activity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
