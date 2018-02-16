@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     public void sendMessage(View view){
-        Intent intent = new Intent(this, DashboardActivity.class);
+        Intent intent = new Intent(this, Dashboard2Activity.class);
         EditText username_text = (EditText) findViewById(R.id.username_login);
         EditText password_text = (EditText) findViewById(R.id.password_login);
         String username = username_text.getText().toString();

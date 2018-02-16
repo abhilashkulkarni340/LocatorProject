@@ -4,4 +4,10 @@
     <string name="password">Password</string>
     <string name="submit_lgn">SUBMIT</string>
     <string name="search_lgn">SEARCH</string>
+    <string name="title_activity_dashboard2">Dashboard2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
