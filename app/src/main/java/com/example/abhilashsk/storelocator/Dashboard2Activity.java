@@ -29,7 +29,7 @@ public class Dashboard2Activity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Your cart!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -99,7 +99,8 @@ public class Dashboard2Activity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
