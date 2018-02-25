@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,10 +14,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dashboard2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,AdapterView.OnItemClickListener {
+    public static final String[] EXTRA_USERNAME_LIST = {"abhilash","atif","aman"};
+    public static final String[] EXTRA_PASSWORD_LIST = {"kulkarni","zia","satya"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +57,23 @@ public class Dashboard2Activity extends AppCompatActivity
         String username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME);
         String password = intent.getStringExtra(LoginActivity.EXTRA_PASSWORD);
 
-//        TextView username_tv = findViewById(R.id.username_text);
-//        TextView email_tv = findViewById(R.id.email_text);
-//        username_tv.setText(username);
-//        email_tv.setText(password);
+        //verifyLogin(username,password);
 
+        Integer[] names={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+
+        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<Integer>(this,
+                android.R.layout.simple_list_item_1, names);
+
+        ListView listView = (ListView) findViewById(R.id.list_for_stores);
+        listView.setAdapter(adapter2);
+        listView.setOnItemClickListener(this);
+
+    }
+
+    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        Log.i("HelloListView", "You clicked Item: " + id + " at position:" + position);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -107,4 +129,21 @@ public class Dashboard2Activity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    /*public void verifyLogin(String user,String pass){
+        boolean ismember=false;
+        for(int i=0;i<3;i++){
+            if(user==EXTRA_USERNAME_LIST[i]){
+                if(pass==EXTRA_PASSWORD_LIST[i]) {
+                    ismember=true;
+                    return;
+                }
+            }
+        }
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
+    }*/
+
 }
