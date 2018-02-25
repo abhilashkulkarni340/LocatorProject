@@ -4,26 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.abhilashsk.storelocator.Dashboard2Activity"
-    tools:showIn="@layout/app_bar_dashboard2">
+    tools:context="com.example.abhilashsk.storelocator.ShopActivity">
 
-    <EditText
-        android:id="@+id/search_bar"
+    <TextView
+        android:id="@+id/shop_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/search_lgn"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/list_for_stores"
+        android:text="MH CANTEEN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/shop_address_shp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="ADDRESS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shop_name" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="0dp"
@@ -31,7 +36,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
         android:paddingBottom="2.5dp"
         android:paddingLeft="5dp"
@@ -39,9 +44,10 @@
         android:paddingTop="2.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        app:layout_constraintVertical_bias="0.6">
+        app:layout_constraintTop_toBottomOf="@+id/shop_address_shp"
+        app:layout_constraintVertical_bias="0.0">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -50,7 +56,7 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <!-- ListRow Left sied Thumbnail image -->
+            <!-- ListRow Left side Thumbnail image -->
 
             <LinearLayout
                 android:id="@+id/thumbnail"
@@ -76,18 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/thumbnail"
-                android:text="MH CANTEEN"
-                android:textColor="#040404"
-                android:textSize="15dip"
-                android:typeface="sans" />
-
-            <TextView
-                android:id="@+id/ratings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:text="4.5"
+                android:text="Pineapple"
                 android:textColor="#040404"
                 android:textSize="15dip"
                 android:typeface="sans" />
@@ -102,25 +97,43 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/address_text"
+                    android:id="@+id/plist_price_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="0.23"
                     android:paddingRight="5dip"
-                    android:text="Basavangudi"
+                    android:text="Rs. 200"
                     android:textColor="#1d1d1d"
                     android:textSize="12dip"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="116dp"
+                    tools:layout_editor_absoluteY="170dp" />
 
                 <TextView
-                    android:id="@+id/distance_text"
+                    android:id="@+id/plist_weight_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:paddingRight="25dip"
+                    android:text="100 gm"
+                    android:textColor="#343434"
+                    android:textSize="12dip" />
+
+                <ImageView
+                    android:id="@+id/cart_minus_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_manage" />
+
+                <TextView
+                    android:id="@+id/cart_product_quantity_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:paddingLeft="15dip"
                     android:paddingRight="15dip"
-                    android:text="1 km"
+                    android:text="10"
                     android:textSize="12dip"
                     android:textStyle="bold" />
 
@@ -129,12 +142,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_menu_gallery" />
-
             </LinearLayout>
-
-
         </RelativeLayout>
 
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

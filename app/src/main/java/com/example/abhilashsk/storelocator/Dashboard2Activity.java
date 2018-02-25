@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dashboard2Activity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
     public static final String[] EXTRA_USERNAME_LIST = {"abhilash","atif","aman"};
     public static final String[] EXTRA_PASSWORD_LIST = {"kulkarni","zia","satya"};
 
@@ -57,24 +57,10 @@ public class Dashboard2Activity extends AppCompatActivity
         String username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME);
         String password = intent.getStringExtra(LoginActivity.EXTRA_PASSWORD);
 
-        //verifyLogin(username,password);
 
-        Integer[] names={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<Integer>(this,
-                android.R.layout.simple_list_item_1, names);
-
-        ListView listView = (ListView) findViewById(R.id.list_for_stores);
-        listView.setAdapter(adapter2);
-        listView.setOnItemClickListener(this);
 
     }
 
-    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        Log.i("HelloListView", "You clicked Item: " + id + " at position:" + position);
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onBackPressed() {
@@ -130,20 +116,5 @@ public class Dashboard2Activity extends AppCompatActivity
         return true;
     }
 
-    /*public void verifyLogin(String user,String pass){
-        boolean ismember=false;
-        for(int i=0;i<3;i++){
-            if(user==EXTRA_USERNAME_LIST[i]){
-                if(pass==EXTRA_PASSWORD_LIST[i]) {
-                    ismember=true;
-                    return;
-                }
-            }
-        }
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-
-    }*/
 
 }

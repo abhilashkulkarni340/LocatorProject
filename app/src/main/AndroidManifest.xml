@@ -20,7 +20,8 @@
             android:name=".Dashboard2Activity"
             android:label="@string/title_activity_dashboard2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ShopActivity"></activity>
     </application>
 
 </manifest>
