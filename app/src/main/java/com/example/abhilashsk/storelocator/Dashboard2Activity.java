@@ -18,10 +18,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +60,23 @@ public class Dashboard2Activity extends AppCompatActivity
         String username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME);
         String password = intent.getStringExtra(LoginActivity.EXTRA_PASSWORD);
 
+        FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab);
+        fab1.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
+
+        fab1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivityForResult(new Intent(Dashboard2Activity.this,ShopActivity.class), 0);
+            }
+        });
+
+        /*RelativeLayout rel = (RelativeLayout) findViewById(R.id.rel_store_list);
+        rel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(Dashboard2Activity.this, ShopActivity.class) );
+            }
+        });*/
 
 
     }

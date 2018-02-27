@@ -19,7 +19,6 @@
         android:ems="10"
         android:hint="@string/search_lgn"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/list_for_stores"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,8 +28,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         android:paddingBottom="2.5dp"
@@ -47,8 +46,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
+            android:clickable="true"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="5dp"
+            android:layout_marginBottom="2dp">
 
             <!-- ListRow Left sied Thumbnail image -->
 
@@ -62,9 +63,9 @@
 
                 <ImageView
                     android:id="@+id/list_image"
-                    android:layout_width="50dip"
-                    android:layout_height="50dip"
-                    android:src="@drawable/ic_menu_send" />
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/ic_home_black_24dp" />
             </LinearLayout>
 
             <!-- Title Of Song -->
@@ -114,6 +115,17 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/catrgory_shp_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip"
+                    android:text="Food"
+                    android:textSize="12dip"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/distance_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -128,7 +140,111 @@
                     android:id="@+id/cart_plus_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_gallery" />
+                    android:src="@drawable/ic_navigation_black_24dp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <!-- ListRow Left sied Thumbnail image -->
+
+            <LinearLayout
+                android:id="@+id/thumbnail2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="7dip"
+                android:padding="2dip">
+
+                <ImageView
+                    android:id="@+id/list_image2"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:src="@drawable/ic_home_black_24dp" />
+            </LinearLayout>
+
+            <!-- Title Of Song -->
+
+
+            <TextView
+                android:id="@+id/from_name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/thumbnail2"
+                android:text="VIDYARTHI KHANA"
+                android:textColor="#040404"
+                android:textSize="15dip"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/ratings2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:text="4.0"
+                android:textColor="#040404"
+                android:textSize="15dip"
+                android:typeface="sans" />
+
+            <LinearLayout
+                android:id="@+id/cart_plus_minus_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/from_name2"
+                android:layout_toRightOf="@+id/thumbnail2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/address_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="0.23"
+                    android:paddingRight="5dip"
+                    android:text="Banashankari"
+                    android:textColor="#1d1d1d"
+                    android:textSize="12dip"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/catrgory_shp_list2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip"
+                    android:text="Food"
+                    android:textSize="12dip"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/distance_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:paddingLeft="15dip"
+                    android:paddingRight="15dip"
+                    android:text="1 km"
+                    android:textSize="12dip"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/cart_plus_img2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_navigation_black_24dp" />
 
             </LinearLayout>
 
