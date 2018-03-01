@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,10 +57,10 @@ public class Dashboard2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         String username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME);
         String password = intent.getStringExtra(LoginActivity.EXTRA_PASSWORD);
-
+*/
         FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab);
         fab1.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
 
@@ -70,13 +71,14 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         });
 
-        /*RelativeLayout rel = (RelativeLayout) findViewById(R.id.rel_store_list);
-        rel.setOnClickListener(new View.OnClickListener(){
+        ImageView img = (ImageView) findViewById(R.id.list_image);
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                startActivity(new Intent(Dashboard2Activity.this, ShopActivity.class) );
+            public void onClick(View view) {
+                Intent intent = new Intent(Dashboard2Activity.this,ShopActivity.class);
+                startActivity(intent);
             }
-        });*/
+        });
 
 
     }
