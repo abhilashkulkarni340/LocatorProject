@@ -32,18 +32,12 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     public static final String[] EXTRA_USERNAME_LIST = {"abhilash","atif","aman"};
     public static final String[] EXTRA_PASSWORD_LIST = {"kulkarni","zia","satya"};
     ListView list;
-    String[] web = {
-            "Google Plus",
-            "Twitter",
-            "Windows",
-            "Bing",
-            "Itunes",
-            "Wordpress",
-            "Drupal"
-    } ;
+    String[] shopnames = {"MH Canteen", "Mess Canteen", "Campus Bookmart", "Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles"} ;
+    String[] locations={"Basavangudi", "Basavangudi", "Basavangudi", "Basavangudi", "Banashankari", "Jayanagar", "Kormangala"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +47,7 @@ public class Dashboard2Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +69,7 @@ public class Dashboard2Activity extends AppCompatActivity
         String username = intent.getStringExtra(LoginActivity.EXTRA_USERNAME);
         String password = intent.getStringExtra(LoginActivity.EXTRA_PASSWORD);
 */
-        FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab);
         fab1.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
 
         fab1.setOnClickListener(new View.OnClickListener(){
@@ -82,7 +77,7 @@ public class Dashboard2Activity extends AppCompatActivity
             public void onClick(View view){
                 startActivityForResult(new Intent(Dashboard2Activity.this,ShopActivity.class), 0);
             }
-        });
+        });*/
 
         /*ImageView img = (ImageView) findViewById(R.id.list_image);
         img.setOnClickListener(new View.OnClickListener() {
@@ -93,17 +88,20 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         });*/
 
-        CustomList adapter = new CustomList(Dashboard2Activity.this, web);
+        final ArrayList<String> shopName = getInfo(shopnames);
+        final ArrayList<String> location = getInfo(locations);
+
+        CustomList adapter = new CustomList(Dashboard2Activity.this, shopName,location);
         list=(ListView)findViewById(R.id.list2);
         list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
+            public void (AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(Dashboard2Activity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(Dashboard2Activity.this, "You Clicked at " +shopName.get(position), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 
     }
@@ -165,6 +163,14 @@ public class Dashboard2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public ArrayList<String> getInfo(String[] arr){
+        ArrayList<String> dynarr = new ArrayList<String>();
+        for (String x:arr) {
+            dynarr.add(x);
+        }
+        return dynarr;
     }
 
 
