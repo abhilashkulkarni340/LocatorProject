@@ -2,6 +2,7 @@ package com.example.abhilashsk.storelocator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,25 @@ public class LoginActivity extends AppCompatActivity {
     public static final String EXTRA_USERNAME = "com.example.abhilashsk.USERNAME";
     public static final String EXTRA_PASSWORD = "com.example.abhilashsk.PASSWORD";
     final DatabaseHandler db = new DatabaseHandler(this);
+    /*public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Username = "usernameKey";
+    public static final String Password = "passwordKey";
+    SharedPreferences sharedpreferences;*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        try{
+            String user = sharedpreferences.getString("usernameKey","");
+            String pass = sharedpreferences.getString("passwordKey","");
+            if(user.isEmpty()||pass.isEmpty()){
+                Intent intent = new Intent(this, Dashboard2Activity.class);
+                startActivity(intent);
+            }
+        }catch (Exception e){
+            Log.d("Session Error",e.toString());
+        }*/
 
     }
     public void sendMessage(View view){
@@ -38,6 +54,10 @@ public class LoginActivity extends AppCompatActivity {
                 c.moveToNext();
                 String pass = c.getString(3);
                 if(pass.equals(password)){
+                    /*SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString(Username, username);
+                    editor.putString(Password, password);
+                    editor.commit();*/
                     startActivity(intent);
                 }else{
                     Message("Wrong Password");
