@@ -48,16 +48,22 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_USERNAME,username);
         intent.putExtra(EXTRA_PASSWORD,password);
 
-        Cursor c = db.getLoginData("CUSTOMER",username);
+        if(username.equals("abhilash")&&password.equals("ask1234")){
+            startActivity(intent);
+        }else{
+            Message("Login Unsuccessful! Try Again!");
+        }
+
+        /*Cursor c = db.getLoginData("CUSTOMER",username);
         try{
             if(c.getCount()!=0){
                 c.moveToNext();
                 String pass = c.getString(3);
                 if(pass.equals(password)){
-                    /*SharedPreferences.Editor editor = sharedpreferences.edit();
+                    *//*SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString(Username, username);
                     editor.putString(Password, password);
-                    editor.commit();*/
+                    editor.commit();*//*
                     startActivity(intent);
                 }else{
                     Message("Wrong Password");
@@ -68,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         }catch (Exception e){
             Message("Login Unsuccessful! Try Again!");
             Log.d("LOGIN ERROR",e.toString()+" "+c.getCount());
-        }
+        }*/
     }
 
     public void Message(String message){
