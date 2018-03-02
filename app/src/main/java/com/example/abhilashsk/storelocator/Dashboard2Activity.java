@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,16 @@ public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String[] EXTRA_USERNAME_LIST = {"abhilash","atif","aman"};
     public static final String[] EXTRA_PASSWORD_LIST = {"kulkarni","zia","satya"};
+    ListView list;
+    String[] web = {
+            "Google Plus",
+            "Twitter",
+            "Windows",
+            "Bing",
+            "Itunes",
+            "Wordpress",
+            "Drupal"
+    } ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +84,24 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         });
 
-        ImageView img = (ImageView) findViewById(R.id.list_image);
+        /*ImageView img = (ImageView) findViewById(R.id.list_image);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Dashboard2Activity.this,ShopActivity.class);
                 startActivity(intent);
+            }
+        });*/
+
+        CustomList adapter = new CustomList(Dashboard2Activity.this, web);
+        list=(ListView)findViewById(R.id.list2);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(Dashboard2Activity.this, "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
             }
         });
 

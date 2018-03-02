@@ -1,28 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.abhilashsk.storelocator.Dashboard2Activity"
-    tools:showIn="@layout/app_bar_dashboard2">
-
-    <EditText
-        android:id="@+id/search_bar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="@string/search_lgn"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+<!--
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="0dp"
@@ -51,7 +27,7 @@
             android:padding="5dp"
             android:layout_marginBottom="2dp">
 
-            <!-- ListRow Left sied Thumbnail image -->
+            &lt;!&ndash; ListRow Left sied Thumbnail image &ndash;&gt;
 
             <LinearLayout
                 android:id="@+id/thumbnail"
@@ -68,7 +44,7 @@
                     android:src="@drawable/ic_home_black_24dp" />
             </LinearLayout>
 
-            <!-- Title Of Song -->
+            &lt;!&ndash; Title Of Song &ndash;&gt;
 
 
             <TextView
@@ -155,7 +131,7 @@
             android:orientation="horizontal"
             android:padding="5dp">
 
-            <!-- ListRow Left sied Thumbnail image -->
+            &lt;!&ndash; ListRow Left sied Thumbnail image &ndash;&gt;
 
             <LinearLayout
                 android:id="@+id/thumbnail2"
@@ -172,7 +148,7 @@
                     android:src="@drawable/ic_home_black_24dp" />
             </LinearLayout>
 
-            <!-- Title Of Song -->
+            &lt;!&ndash; Title Of Song &ndash;&gt;
 
 
             <TextView
@@ -252,5 +228,42 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+-->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.abhilashsk.storelocator.Dashboard2Activity"
+    tools:showIn="@layout/app_bar_dashboard2">
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/search_lgn"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/list2"
+        android:layout_width="411dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        tools:layout_editor_absoluteX="0dp">
+
+    </ListView>
 
 </android.support.constraint.ConstraintLayout>
