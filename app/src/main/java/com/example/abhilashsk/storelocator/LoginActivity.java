@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String EXTRA_USERNAME = "com.example.abhilashsk.USERNAME";
     public static final String EXTRA_PASSWORD = "com.example.abhilashsk.PASSWORD";
     final DatabaseHandler db = new DatabaseHandler(this);
+    final Validator valid = new Validator();
     /*public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Username = "usernameKey";
     public static final String Password = "passwordKey";
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_USERNAME,username);
         intent.putExtra(EXTRA_PASSWORD,password);
 
-        if(username.equals("abhilash")&&password.equals("ask1234")){
+        if(username.equals("admin")&&password.equals("admin")){
             startActivity(intent);
         }else{
             Message("Login Unsuccessful! Try Again!");
