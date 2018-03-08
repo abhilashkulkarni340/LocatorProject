@@ -1,8 +1,10 @@
 package com.example.abhilashsk.storelocator;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,16 @@ public class ShopActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
+
+        Intent intent=getIntent();
+        String shopname=intent.getStringExtra("ShopName");
+        String address=intent.getStringExtra("Address");
+
+        TextView shop_name=(TextView)findViewById(R.id.shop_name);
+        TextView shop_address=(TextView)findViewById(R.id.shop_address_shp);
+
+        shop_name.setText(shopname);
+        shop_address.setText(address);
 
         final ArrayList<String> items2 = getInfo(items);
         final ArrayList<String> prices2 = getInfo(prices);

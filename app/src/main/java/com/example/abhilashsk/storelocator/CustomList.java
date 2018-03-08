@@ -46,6 +46,7 @@ public class CustomList extends ArrayAdapter<String>{
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),ShopActivity.class);
                 intent.putExtra("Address",location.get(position));
+                intent.putExtra("ShopName",shopName.get(position));
                 view.getContext().startActivity(intent);
             }
         });
@@ -56,6 +57,7 @@ public class CustomList extends ArrayAdapter<String>{
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),ShopActivity.class);
                 intent.putExtra("Address",location.get(position));
+                intent.putExtra("ShopName",shopName.get(position));
                 view.getContext().startActivity(intent);
             }
         });
