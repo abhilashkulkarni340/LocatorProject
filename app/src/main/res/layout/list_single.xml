@@ -34,7 +34,7 @@
                 android:padding="2dip">
 
                 <ImageView
-                    android:id="@+id/img"
+                    android:id="@+id/shop_icon"
                     android:layout_width="40dip"
                     android:layout_height="40dip"
                     android:src="@drawable/ic_home_black_24dp" />
@@ -105,7 +105,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/cart_plus_img"
+                    android:id="@+id/navigation_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_navigation_black_24dp" />

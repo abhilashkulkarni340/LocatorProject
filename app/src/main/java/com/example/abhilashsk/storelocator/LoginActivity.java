@@ -18,27 +18,25 @@ public class LoginActivity extends AppCompatActivity {
     public static final String EXTRA_PASSWORD = "com.example.abhilashsk.PASSWORD";
     final DatabaseHandler db = new DatabaseHandler(this);
     final Validator valid = new Validator();
-    /*public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Username = "usernameKey";
     public static final String Password = "passwordKey";
-    SharedPreferences sharedpreferences;*/
+    public static final String CART = "cartKey";
+    SharedPreferences sharedpreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        /*sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        try{
-            String user = sharedpreferences.getString("usernameKey","");
-            String pass = sharedpreferences.getString("passwordKey","");
-            if(user.isEmpty()||pass.isEmpty()){
-                Intent intent = new Intent(this, Dashboard2Activity.class);
-                startActivity(intent);
-            }
-        }catch (Exception e){
-            Log.d("Session Error",e.toString());
-        }*/
-
+        checkSessionLogin();
     }
+
+    protected void onResume(){
+        super.onResume();
+        Log.d("LOGIN","LoginActivity resumed");
+        checkSessionLogin();
+    }
+
     public void sendMessage(View view){
         Intent intent = new Intent(this, Dashboard2Activity.class);
         EditText username_text = (EditText) findViewById(R.id.username_login);
@@ -50,32 +48,15 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_PASSWORD,password);
 
         if(username.equals("admin")&&password.equals("admin")){
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Username,"admin");
+            editor.putString(Password,"admin");
+            editor.putString(CART,"0");
+            editor.apply();
             startActivity(intent);
         }else{
             Message("Login Unsuccessful! Try Again!");
         }
-
-        /*Cursor c = db.getLoginData("CUSTOMER",username);
-        try{
-            if(c.getCount()!=0){
-                c.moveToNext();
-                String pass = c.getString(3);
-                if(pass.equals(password)){
-                    *//*SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString(Username, username);
-                    editor.putString(Password, password);
-                    editor.commit();*//*
-                    startActivity(intent);
-                }else{
-                    Message("Wrong Password");
-                }
-            }else{
-                Message("Wrong username and password!");
-            }
-        }catch (Exception e){
-            Message("Login Unsuccessful! Try Again!");
-            Log.d("LOGIN ERROR",e.toString()+" "+c.getCount());
-        }*/
     }
 
     public void Message(String message){
@@ -84,11 +65,32 @@ public class LoginActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-
     }
 
     public void register(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Log.d("LOGIN","back key pressed");
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
+
+    public void checkSessionLogin(){
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        try{
+            String user = sharedpreferences.getString("usernameKey","");
+            String pass = sharedpreferences.getString("passwordKey","");
+            if(!user.isEmpty()&&!pass.isEmpty()){
+                Intent intent = new Intent(this, Dashboard2Activity.class);
+                startActivity(intent);
+            }
+        }catch (Exception e){
+            Log.d("Session Error",e.toString());
+        }
     }
 }

@@ -32,21 +32,34 @@ public class CustomList extends ArrayAdapter<String>{
 
     }
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(final int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.list_single, null, true);
+        final View rowView= inflater.inflate(R.layout.list_single, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.from_name);
-        TextView address = (TextView) rowView.findViewById(R.id.address_text);
+        final TextView address = (TextView) rowView.findViewById(R.id.address_text);
         txtTitle.setText(shopName.get(position));
         address.setText(location.get(position));
-        RelativeLayout rel = (RelativeLayout)rowView.findViewById(R.id.rel_shop_list);
-        rel.setOnClickListener(new View.OnClickListener() {
+
+        ImageView nav = (ImageView) rowView.findViewById(R.id.navigation_image);
+        nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(),ShopActivity.class);
+                intent.putExtra("Address",location.get(position));
                 view.getContext().startActivity(intent);
             }
         });
+
+        ImageView shop = (ImageView)rowView.findViewById(R.id.shop_icon);
+        shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),ShopActivity.class);
+                intent.putExtra("Address",location.get(position));
+                view.getContext().startActivity(intent);
+            }
+        });
+
         return rowView;
     }
 }
