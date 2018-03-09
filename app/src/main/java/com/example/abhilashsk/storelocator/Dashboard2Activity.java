@@ -35,8 +35,8 @@ public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView list;
-    String[] shopnames = {"MH Canteen", "Mess Canteen", "Campus Bookmart", "Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles"} ;
-    String[] locations = {"Basavangudi", "Basavangudi", "Basavangudi", "Basavangudi", "Banashankari", "Jayanagar", "Kormangala"};
+    String[] shopnames = {"Campus Bookmart", "Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles"} ;
+    String[] locations = {"BMSCE, Basavangudi", "Basavangudi", "Banashankari", "Jayanagar", "Kormangala"};
     SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

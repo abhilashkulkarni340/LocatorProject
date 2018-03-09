@@ -44,9 +44,9 @@ public class CustomList extends ArrayAdapter<String>{
         nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),ShopActivity.class);
-                intent.putExtra("Address",location.get(position));
-                intent.putExtra("ShopName",shopName.get(position));
+                Intent intent = new Intent(view.getContext(),MapsActivity.class);
+                intent.putExtra("destination_address_key",location.get(position));
+                intent.putExtra("destination_name_key",shopName.get(position));
                 view.getContext().startActivity(intent);
             }
         });
