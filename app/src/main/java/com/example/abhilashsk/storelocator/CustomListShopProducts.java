@@ -49,6 +49,7 @@ public class CustomListShopProducts extends ArrayAdapter<String>{
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),items.get(pos)+" has been added to your cart!" , Toast.LENGTH_SHORT).show();
+
             }
         });
         ImageView minus = (ImageView) rowView.findViewById(R.id.cart_minus_img);

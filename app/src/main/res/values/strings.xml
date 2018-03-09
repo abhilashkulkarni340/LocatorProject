@@ -16,4 +16,5 @@
     <string name="phone_num_rgstr">Phone Number..</string>
     <string name="username_rgstr">Username..</string>
     <string name="password_rgstr">Password..</string>
+    <string name="title_activity_markers_map">Map</string>
 </resources>
