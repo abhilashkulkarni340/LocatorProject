@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,9 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -35,8 +39,8 @@ public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView list;
-    String[] shopnames = {"Campus Bookmart", "Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles"} ;
-    String[] locations = {"BMSCE, Basavangudi", "Basavangudi", "Banashankari", "Jayanagar", "Kormangala"};
+    String[] shopnames = {"Campus Bookmart", "Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite"} ;
+    String[] locations = {"BMSCE, Basavangudi", "Basavangudi", "Banashankari", "Jayanagar", "Kormangala","Jalahalli"};
     SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class Dashboard2Activity extends AppCompatActivity
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +90,7 @@ public class Dashboard2Activity extends AppCompatActivity
         CustomList adapter = new CustomList(Dashboard2Activity.this, shopName,location);
         list=(ListView)findViewById(R.id.list2);
         list.setAdapter(adapter);
+
     }
 
     protected void onResume(){
@@ -92,6 +98,7 @@ public class Dashboard2Activity extends AppCompatActivity
         Log.d("DASHBOARD","Dashboard2Activity resumed");
         checkSessionDashboard();
     }
+
 
 
     @Override

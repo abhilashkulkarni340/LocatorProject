@@ -55,8 +55,6 @@ Tracer gps;
             longitude = gps.getLongitude();
             Log.d("1","1");
             origin=Double.toString(latitude)+","+Double.toString(longitude);
-            Toast.makeText(getApplicationContext(), "Your Location is \nLat:"
-                    + latitude + "\nLong:" + longitude, Toast.LENGTH_LONG).show();
 
         }else
         {
@@ -77,15 +75,6 @@ Tracer gps;
     }
 
     private void sendRequest() {
-
-        if (origin.isEmpty()) {
-            Toast.makeText(this, "Please enter origin address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (destination.isEmpty()) {
-            Toast.makeText(this, "Please enter destination address!", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         try {
             new DirectionFinder(this, origin, destination).execute();
@@ -174,9 +163,5 @@ Tracer gps;
         }
     }
 
-    @Override
-    public void onBackPressed(){
-        Intent intent = new Intent(this,Dashboard2Activity.class);
-        startActivity(intent);
-    }
+
 }

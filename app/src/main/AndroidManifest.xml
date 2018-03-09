@@ -22,7 +22,8 @@
         <activity
             android:name=".Dashboard2Activity"
             android:label="@string/title_activity_dashboard2"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ShopActivity" />
         <!--
