@@ -43,6 +43,8 @@
             android:label="@string/title_activity_markers_map"></activity>
         <activity android:name=".MainActivity"/>
         <activity android:name=".MapsActivity"/>
+        <activity android:name=".CartActivity"
+            android:label="CART"/>
     </application>
 
 </manifest>

@@ -24,26 +24,28 @@ public class GeocodingLocation {
                 String latitude = null;
                 String longitude =null;
                 String result=null;
-                try {
-                    List<Address> addressList = geocoder.getFromLocationName(locationAddress, 1);
-                    if (addressList != null && addressList.size() > 0) {
-                        Address address = addressList.get(0);
-                        latitude=Double.toString(address.getLatitude());
-                        longitude=Double.toString(address.getLongitude());
-                    }
-                } catch (IOException e) {
-                    Log.e(TAG, "Unable to connect to Geocoder", e);
-                } finally {
-                    if (latitude != null && longitude!=null) {
-                        bundle.putString("latitude", latitude);
-                        bundle.putString("longitude",longitude);
-                        Log.d("In finally","Geolocation: "+latitude+","+longitude);
-                    } else {
-                        result = "Address: " + locationAddress +
-                                "\n Unable to get Latitude and Longitude for this address location.";
-                        bundle.putString("address", result);
-                    }
-                }
+        try {
+            List<Address> addressList = geocoder.getFromLocationName(locationAddress, 1);
+            if (addressList != null && addressList.size() > 0) {
+                Address address = addressList.get(0);
+                latitude=Double.toString(address.getLatitude());
+                longitude=Double.toString(address.getLongitude());
+                Log.d("GEOLOCATION","Got latitude: "+latitude+" and longitude: "+longitude);
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Unable to connect to Geocoder", e);
+        } finally {
+            if (latitude != null && longitude!=null) {
+                bundle.putString("latitude", latitude);
+                bundle.putString("longitude",longitude);
+                Log.d("In finally","Geolocation: "+latitude+","+longitude);
+            } else {
+                result = "Unable to get Latitude and Longitude for this location: "+locationAddress;
+                bundle.putString("latitude", "12.9416079");
+                bundle.putString("longitude","77.56688299999996");
+                Log.d("GEOLOCATION ERROR",result);
+            }
+        }
         return bundle;
 
     }

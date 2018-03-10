@@ -50,6 +50,9 @@ public class Dashboard2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final ArrayList<String> shopName = getInfo(shopnames);
+        final ArrayList<String> location = getInfo(locations);
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         final String cart = sharedpreferences.getString("cartKey","");
 
@@ -70,6 +73,8 @@ public class Dashboard2Activity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Dashboard2Activity.this,MarkersMapActivity.class);
+                intent.putExtra("shopname_key",shopName);
+                intent.putExtra("address_key",location);
                 startActivity(intent);
             }
         });
@@ -84,8 +89,7 @@ public class Dashboard2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final ArrayList<String> shopName = getInfo(shopnames);
-        final ArrayList<String> location = getInfo(locations);
+
 
         CustomList adapter = new CustomList(Dashboard2Activity.this, shopName,location);
         list=(ListView)findViewById(R.id.list2);
