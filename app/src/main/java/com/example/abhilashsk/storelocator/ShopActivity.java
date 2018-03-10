@@ -39,7 +39,7 @@ public class ShopActivity extends AppCompatActivity {
         list=(ListView)findViewById(R.id.list3);
         list.setAdapter(adapter);
         FloatingActionButton fab_cart = (FloatingActionButton) findViewById(R.id.fab_cart);
-        fab_cart.setImageResource(R.drawable.ic_room_black_24dp);
+        fab_cart.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
         fab_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
