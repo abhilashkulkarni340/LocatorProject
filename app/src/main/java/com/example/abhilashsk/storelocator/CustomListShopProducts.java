@@ -25,15 +25,17 @@ public class CustomListShopProducts extends ArrayAdapter<String>{
     private final ArrayList<String> items;
     private final ArrayList<String> price;
     private final ArrayList<String> weight;
+    private final ArrayList<String> pid;
     public final Bundle bundle_cart;
     public CustomListShopProducts(Activity context,
-                                  ArrayList<String> items, ArrayList<String> prices, ArrayList<String> weights, Bundle bundle_cart) {
+                                  ArrayList<String> items, ArrayList<String> prices, ArrayList<String> weights,ArrayList<String> pid, Bundle bundle_cart) {
         super(context, R.layout.list_single_products, items);
         this.context = context;
         this.items = items;
         this.price = prices;
         this.weight =weights;
         this.bundle_cart=bundle_cart;
+        this.pid=pid;
     }
     @Override
     public View getView(int position, View view, ViewGroup parent) {
@@ -51,13 +53,13 @@ public class CustomListShopProducts extends ArrayAdapter<String>{
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(bundle_cart.getString(items.get(pos))==null){
-                    bundle_cart.putString(items.get(pos),"1");
+                if(bundle_cart.getString(Integer.toString(pos))==null){
+                    bundle_cart.putString(Integer.toString(pos),"1");
                 }else{
-                    int num=Integer.parseInt(bundle_cart.getString(items.get(pos)));
-                    bundle_cart.putString(items.get(pos),Integer.toString(num+1));
+                    int num=Integer.parseInt(bundle_cart.getString(Integer.toString(pos)));
+                    bundle_cart.putString(Integer.toString(pos),Integer.toString(num+1));
                 }
-                Toast.makeText(view.getContext(),bundle_cart.getString(items.get(pos))+" "+items.get(pos)+" has been added to your cart!" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(),bundle_cart.getString(Integer.toString(pos))+" "+items.get(pos)+" has been added to your cart!" , Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -65,14 +67,14 @@ public class CustomListShopProducts extends ArrayAdapter<String>{
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(bundle_cart.getString(items.get(pos))==null){
+                if(bundle_cart.getString(Integer.toString(pos))==null){
                     Toast.makeText(view.getContext(),items.get(pos)+" is not your cart!" , Toast.LENGTH_SHORT).show();
-                }else if(bundle_cart.getString(items.get(pos))=="1"){
-                    bundle_cart.remove(items.get(pos));
+                }else if(bundle_cart.getString(Integer.toString(pos))=="1"){
+                    bundle_cart.remove(Integer.toString(pos));
                     Toast.makeText(view.getContext(),"1 "+items.get(pos)+" has been removed to your cart!" , Toast.LENGTH_SHORT).show();
                 } else{
-                    int num=Integer.parseInt(bundle_cart.getString(items.get(pos)));
-                    bundle_cart.putString(items.get(pos),Integer.toString(num-1));
+                    int num=Integer.parseInt(bundle_cart.getString(Integer.toString(pos)));
+                    bundle_cart.putString(Integer.toString(pos),Integer.toString(num-1));
                     Toast.makeText(view.getContext(),"1 "+items.get(pos)+" has been removed to your cart!" , Toast.LENGTH_SHORT).show();
                 }
             }

@@ -15,6 +15,7 @@ public class ShopActivity extends AppCompatActivity {
     String[] items = {"Dosa", "Idli", "Coffee", "Maggi"} ;
     String[] prices = {"40", "30", "10", "35"} ;
     String[] weights = {"1 plate", "1 plate", "1 plate", "1 plate"} ;
+    String[] ids={"0","1","2","3"};
     ListView list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,9 @@ public class ShopActivity extends AppCompatActivity {
         final ArrayList<String> items2 = getInfo(items);
         final ArrayList<String> prices2 = getInfo(prices);
         final ArrayList<String> weights2 = getInfo(weights);
+        final ArrayList<String> pid = getInfo(ids);
         final Bundle bundle=new Bundle();
-        final CustomListShopProducts adapter = new CustomListShopProducts(ShopActivity.this, items2,prices2,weights2,bundle);
+        final CustomListShopProducts adapter = new CustomListShopProducts(ShopActivity.this, items2,prices2,weights2,pid,bundle);
         list=(ListView)findViewById(R.id.list3);
         list.setAdapter(adapter);
         FloatingActionButton fab_cart = (FloatingActionButton) findViewById(R.id.fab_cart);
@@ -45,6 +47,8 @@ public class ShopActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ShopActivity.this,CartActivity.class);
                 intent.putExtra("bundle_cart_key",adapter.bundle_cart);
+                intent.putExtra("items_key",items2);
+                intent.putExtra("price_key",prices2);
                 startActivity(intent);
             }
         });
