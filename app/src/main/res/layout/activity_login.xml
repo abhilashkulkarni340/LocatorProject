@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/logo_background"
     tools:context="com.example.abhilashsk.storelocator.LoginActivity">
 
     <EditText
@@ -12,13 +13,15 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="300dp"
         android:ems="10"
         android:hint="@string/username"
+        android:textColorHint="@color/white"
         android:inputType="textPersonName"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/submit_login"
@@ -28,7 +31,12 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:onClick="sendMessage"
-        android:text="@string/submit_lgn"
+        android:text="LOGIN"
+        android:backgroundTint="#1e365c"
+        android:elevation="2dp"
+        android:textColorHighlight="@color/white"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +51,8 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/password"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,22 +64,26 @@
         android:layout_height="48dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#1e365c"
+        android:elevation="2dp"
         android:onClick="register"
         android:text="@string/register_lgn"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submit_login" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageView2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="365dp"
+        android:layout_height="124dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_polymer_black_24dp" />
+        app:srcCompat="@drawable/logo_for_dashboard" />-->
 </android.support.constraint.ConstraintLayout>
