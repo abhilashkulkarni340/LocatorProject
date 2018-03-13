@@ -12,8 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"
-            >
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +23,10 @@
             android:name=".Dashboard2Activity"
             android:label="WINKLE"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".RegisterActivity"
-            android:label="WINKLE"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="WINKLE" />
         <activity android:name=".ShopActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -42,11 +42,13 @@
 
         <activity
             android:name=".MarkersMapActivity"
-            android:label="@string/title_activity_markers_map"></activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".MapsActivity"/>
-        <activity android:name=".CartActivity"
-            android:label="CART"/>
+            android:label="@string/title_activity_markers_map" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MapsActivity" />
+        <activity
+            android:name=".CartActivity"
+            android:label="CART" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
