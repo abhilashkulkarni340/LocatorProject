@@ -55,7 +55,7 @@ public class CustomList extends ArrayAdapter<String>{
         shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),ShopActivity.class);
+                Intent intent = new Intent(view.getContext(),ShopDisplayActivity.class);
                 intent.putExtra("Address",location.get(position));
                 intent.putExtra("ShopName",shopName.get(position));
                 view.getContext().startActivity(intent);

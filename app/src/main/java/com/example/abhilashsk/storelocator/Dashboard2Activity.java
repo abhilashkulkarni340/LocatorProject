@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.Manifest;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.abhilashsk.storelocator.LoginActivity.MyPREFERENCES;
@@ -39,14 +40,17 @@ public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView list;
-    String[] shopnames = {"Campus Bookmart", "Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite"} ;
-    String[] locations = {"BMSCE, Basavangudi", "Basavangudi", "Banashankari", "Jayanagar", "Kormangala","Jalahalli"};
+    String[] shopnames = {"Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite","Mantri Square","Orion Mall","Chungs","IISc","CPRI"} ;
+    String[] locations = {"Basavangudi", "Banashankari", "Jayanagar", "Kormangala","Jalahalli","Malleshwaram","Yeshwanthpur","Malleshwaram,18th cross","CV Raman Road","Ashwath Nagar,Armane Nagar"};
     SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard2);
         checkSessionDashboard();
+        /*GPSManager gps = new GPSManager(
+                Dashboard2Activity.this);
+        gps.start();*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

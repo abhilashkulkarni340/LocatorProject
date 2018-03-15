@@ -39,9 +39,13 @@ public class MarkersMapActivity extends FragmentActivity implements OnMapReadyCa
         if (gps.getLocation() != null) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
+            Log.d("onCreate MarkersMap","Your location is "+latitude+" "+longitude);
         }else
         {
 //gps.showSettingAlert();
+            latitude = 12.942898;
+            longitude = 77.56819659999996;
+            Log.d("onCreate MarkersMap","Your location cannot be found");
         }
         Intent intent=getIntent();
         shopnames=intent.getStringArrayListExtra("shopname_key");
@@ -63,6 +67,7 @@ public class MarkersMapActivity extends FragmentActivity implements OnMapReadyCa
             mMap.addMarker(new MarkerOptions().position(loc).title(shopnames.get(i)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
+        Log.d("onCreate MarkersMap","Your location is "+latitude+" "+longitude);
         LatLng yourloc = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(yourloc).title("Your Position"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yourloc,15));

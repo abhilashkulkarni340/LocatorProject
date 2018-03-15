@@ -59,6 +59,8 @@ Tracer gps;
         }else
         {
 //gps.showSettingAlert();
+            latitude = 12.942898;
+            longitude = 77.56819659999996;
         }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

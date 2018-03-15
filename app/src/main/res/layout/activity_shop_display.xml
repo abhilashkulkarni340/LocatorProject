@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.abhilashsk.storelocator.ShopDisplayActivity">
+
+    <ImageView
+        android:id="@+id/shop_header_image"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pic1" />
+
+    <RelativeLayout
+        android:id="@+id/rel_shop_details_main"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shop_header_image">
+
+        <TextView
+            android:id="@+id/shop_name_disp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="M H Canteen"
+            android:textColor="#000000"
+            android:textSize="20dip" />
+
+        <TextView
+            android:id="@+id/shop_ratings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="4.5"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/shop_address_disp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/navigate"
+            android:text="BMS College of Engineering, Basanvangudi"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/navigate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:onClick="open_navigation"
+            app:srcCompat="@drawable/ic_navigation_black_24dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rel_shop_details_main">
+
+        <Button
+            android:id="@+id/btn_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#42a4f4"
+            android:onClick="callFunction"
+            android:text="CALL"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="#f47a41"
+            android:text="ORDER"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="367dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/close_time"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/open_time"
+            android:layout_marginTop="10dp"
+            android:text="Close Time"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/delivery_bool"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/open_time_disp"
+            android:layout_marginTop="10dp"
+            android:text="Delivery"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/open_time"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Open Time"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/open_time_disp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/close_time"
+            android:layout_alignBottom="@+id/close_time"
+            android:layout_toEndOf="@+id/close_time"
+            android:text="10:00 hrs"
+            android:textAlignment="viewEnd"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/delivery_disp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/delivery_bool"
+            android:layout_alignBottom="@+id/delivery_bool"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/delivery_bool"
+            android:text="YES"
+            android:textAlignment="viewEnd"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/close_time_disp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/open_time"
+            android:text="21:00 hrs"
+            android:textAlignment="viewEnd"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

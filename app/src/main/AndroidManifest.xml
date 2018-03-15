@@ -49,6 +49,7 @@
             android:name=".CartActivity"
             android:label="CART" />
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".ShopDisplayActivity"></activity>
     </application>
 
 </manifest>
