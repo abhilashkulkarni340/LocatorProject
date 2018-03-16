@@ -7,29 +7,19 @@
     tools:context="com.example.abhilashsk.storelocator.ShopActivity">
 
     <TextView
-        android:id="@+id/shop_name"
+        android:id="@+id/shop_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:text="MH CANTEEN"
+        android:textColor="#000000"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/shop_address_shp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="ADDRESS"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_name" />
 
     <ListView
         android:id="@+id/list3"
@@ -38,11 +28,11 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="3dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_address_shp">
+        app:layout_constraintTop_toBottomOf="@+id/shop_details">
 
     </ListView>
 

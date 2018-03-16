@@ -26,11 +26,9 @@ public class ShopActivity extends AppCompatActivity {
         String shopname=intent.getStringExtra("ShopName");
         String address=intent.getStringExtra("Address");
 
-        TextView shop_name=(TextView)findViewById(R.id.shop_name);
-        TextView shop_address=(TextView)findViewById(R.id.shop_address_shp);
+        TextView shop_details=(TextView)findViewById(R.id.shop_details);
 
-        shop_name.setText(shopname);
-        shop_address.setText(address);
+        shop_details.setText("Order from "+shopname+", "+address);
 
         final ArrayList<String> items2 = getInfo(items);
         final ArrayList<String> prices2 = getInfo(prices);

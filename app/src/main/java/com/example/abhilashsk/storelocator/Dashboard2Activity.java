@@ -33,6 +33,12 @@ import java.util.ArrayList;
 import java.util.List;
 import android.Manifest;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.abhilashsk.storelocator.LoginActivity.MyPREFERENCES;
 
@@ -98,6 +104,27 @@ public class Dashboard2Activity extends AppCompatActivity
         CustomList adapter = new CustomList(Dashboard2Activity.this, shopName,location);
         list=(ListView)findViewById(R.id.list2);
         list.setAdapter(adapter);
+
+        /*FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        //myRef.setValue("Hello, World!");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("DBFireBase","Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("DBFirebase Error", "Failed to read value.", error.toException());
+            }
+        });*/
 
     }
 

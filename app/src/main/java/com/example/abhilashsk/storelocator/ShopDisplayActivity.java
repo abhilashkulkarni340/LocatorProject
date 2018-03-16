@@ -40,4 +40,11 @@ public class ShopDisplayActivity extends AppCompatActivity {
         intent.putExtra("destination_name_key",shopname);
         view.getContext().startActivity(intent);
     }
+
+    public void orderFunction(View view) {
+        Intent intent = new Intent(view.getContext(),ShopActivity.class);
+        intent.putExtra("Address",address);
+        intent.putExtra("ShopName",shopname);
+        view.getContext().startActivity(intent);
+    }
 }

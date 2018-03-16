@@ -6,6 +6,7 @@ package com.example.abhilashsk.storelocator;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ public class CustomList extends ArrayAdapter<String>{
     private final Activity context;
     private final ArrayList<String> shopName;
     private final ArrayList<String> location;
+    Tracer gps;
+    Double lat1,lat2,lon1,lon2;
     public CustomList(Activity context,
                       ArrayList<String> shop,ArrayList<String> location) {
         super(context, R.layout.list_single, shop);
@@ -39,7 +42,13 @@ public class CustomList extends ArrayAdapter<String>{
         final TextView address = (TextView) rowView.findViewById(R.id.address_text);
         txtTitle.setText(shopName.get(position));
         address.setText(location.get(position));
+        /*gps = new Tracer(view.getContext());
+        lat1=gps.getLatitude();
+        lon1=gps.getLongitude();
 
+        GeocodingLocation locationAddress = new GeocodingLocation();
+        Bundle bundle = locationAddress.getAddressFromLocation(locations.get(i),
+                view.getApplicationContext());*/
         ImageView nav = (ImageView) rowView.findViewById(R.id.navigation_image);
         nav.setOnClickListener(new View.OnClickListener() {
             @Override
