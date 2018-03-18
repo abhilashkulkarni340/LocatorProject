@@ -24,14 +24,16 @@ public class CustomList extends ArrayAdapter<String>{
     private final Activity context;
     private final ArrayList<String> shopName;
     private final ArrayList<String> location;
+    private final ArrayList<String> category;
     Tracer gps;
     Double lat1,lat2,lon1,lon2;
     public CustomList(Activity context,
-                      ArrayList<String> shop,ArrayList<String> location) {
+                      ArrayList<String> shop,ArrayList<String> location,ArrayList<String> category) {
         super(context, R.layout.list_single, shop);
         this.context = context;
         this.shopName = shop;
         this.location = location;
+        this.category=category;
 
     }
     @Override
@@ -40,8 +42,10 @@ public class CustomList extends ArrayAdapter<String>{
         final View rowView= inflater.inflate(R.layout.list_single, null, true);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.from_name);
         final TextView address = (TextView) rowView.findViewById(R.id.address_text);
+        TextView category_txt=(TextView)rowView.findViewById(R.id.category_shp_list);
         txtTitle.setText(shopName.get(position));
         address.setText(location.get(position));
+        category_txt.setText(category.get(position));
         /*gps = new Tracer(view.getContext());
         lat1=gps.getLatitude();
         lon1=gps.getLongitude();

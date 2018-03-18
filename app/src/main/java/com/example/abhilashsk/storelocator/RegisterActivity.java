@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -32,8 +35,14 @@ public class RegisterActivity extends AppCompatActivity {
         TextView pass = (TextView) findViewById(R.id.password_rgstr);
         String lat = "30.323543546";
         String lon = "71.243254534";
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference myRef = database.getReference("message");
+
+
+        //myRef.setValue("Hello, World!");
         if(!valid.isValidName(name.getText().toString())){
             Toast.makeText(this,"INVALID NAME",Toast.LENGTH_LONG).show();
+            //myRef.child("name").setValue(name.getText().toString());
             //name.setText("");
         }else if(!valid.isValidPhoneNumber(phone.getText().toString())){
             Toast.makeText(this,"INVALID PHONE NUMBER",Toast.LENGTH_LONG).show();

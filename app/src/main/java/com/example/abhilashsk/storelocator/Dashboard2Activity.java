@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,9 +46,15 @@ import static com.example.abhilashsk.storelocator.LoginActivity.MyPREFERENCES;
 public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView list;
+    ListView list1;
+    CustomList adapter;
+    ArrayList<String> sn,loc,cat;
     String[] shopnames = {"Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite","Mantri Square","Orion Mall","Chungs","IISc","CPRI"} ;
     String[] locations = {"Basavangudi", "Banashankari", "Jayanagar", "Kormangala","Jalahalli","Malleshwaram","Yeshwanthpur","Malleshwaram,18th cross","CV Raman Road","Ashwath Nagar,Armane Nagar"};
+    String[] categories={"Food","Food","Groceries","Food","Groceries","Groceries","Food","Food","Groceries","Food"};
+    String[] category_types={"All","Food","Groceries"};
+    Integer[] tabs_list={R.id.tab1,R.id.tab2,R.id.tab3};
+    Integer[] listView_list={R.id.list2,R.id.list3,R.id.list4};
     SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +66,6 @@ public class Dashboard2Activity extends AppCompatActivity
         gps.start();*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        final ArrayList<String> shopName = getInfo(shopnames);
-        final ArrayList<String> location = getInfo(locations);
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         final String cart = sharedpreferences.getString("cartKey","");
@@ -77,6 +81,26 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         });
 
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        TabHost host = (TabHost)findViewById(R.id.tab_host);
+        host.setup();
+
+
+
+        final ArrayList<String> shopName = getInfo(shopnames);
+        final ArrayList<String> location = getInfo(locations);
+        final ArrayList<String> category = getInfo(categories);
+
+
         FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         fab2.setImageResource(R.drawable.ic_room_black_24dp);
         fab2.setOnClickListener(new View.OnClickListener() {
@@ -89,21 +113,40 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         });
 
+        for(int i=0;i<category_types.length;i++){
+            sn=getInfoForTabs(shopnames,categories,category_types[i]);
+            loc=getInfoForTabs(locations,categories,category_types[i]);
+            cat=getInfoForTabs(categories,categories,category_types[i]);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            adapter=new CustomList(Dashboard2Activity.this,sn,loc,cat);
+            list1=(ListView)findViewById(listView_list[i]);
+            list1.setAdapter(adapter);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+            TabHost.TabSpec spec = host.newTabSpec(category_types[i]);
+            spec.setContent(tabs_list[i]);
+            spec.setIndicator(category_types[i]);
+            host.addTab(spec);
+        }
 
+        /*CustomList adapter = new CustomList(Dashboard2Activity.this, shopName,location,category);
+        list1=(ListView)findViewById(R.id.list2);
+        list1.setAdapter(adapter);
 
+        ArrayList<String> sn1=getInfoForTabs(shopnames,categories,"Food");
+        ArrayList<String> loc1=getInfoForTabs(locations,categories,"Food");
+        ArrayList<String> cat1=getInfoForTabs(categories,categories,"Food");
 
-        CustomList adapter = new CustomList(Dashboard2Activity.this, shopName,location);
-        list=(ListView)findViewById(R.id.list2);
-        list.setAdapter(adapter);
+        CustomList adapter1 = new CustomList(Dashboard2Activity.this, sn1,loc1,cat1);
+        list2=(ListView)findViewById(R.id.list3);
+        list2.setAdapter(adapter1);
+
+        ArrayList<String> sn2=getInfoForTabs(shopnames,categories,"Groceries");
+        ArrayList<String> loc2=getInfoForTabs(locations,categories,"Groceries");
+        ArrayList<String> cat2=getInfoForTabs(categories,categories,"Groceries");
+
+        CustomList adapter2 = new CustomList(Dashboard2Activity.this, sn2,loc2,cat2);
+        list3=(ListView)findViewById(R.id.list4);
+        list3.setAdapter(adapter2);*/
 
         /*FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
@@ -126,7 +169,27 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         });*/
 
+
+
+        /*TabHost.TabSpec spec = host.newTabSpec("ALL");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("ALL");
+        host.addTab(spec);
+
+        //Tab 2
+        spec = host.newTabSpec("Food");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("Food");
+        host.addTab(spec);
+
+        //Tab 3
+        spec = host.newTabSpec("Groceries");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("Groceries");
+        host.addTab(spec);*/
+
     }
+
 
     protected void onResume(){
         super.onResume();
@@ -193,6 +256,21 @@ public class Dashboard2Activity extends AppCompatActivity
             dynarr.add(x);
         }
         return dynarr;
+    }
+
+    public ArrayList<String> getInfoForTabs(String[] arr_info,String[] cat_arr,String cat){
+        ArrayList<String> info=new ArrayList<>();
+        if(cat=="All"){
+            for(int i=0;i<cat_arr.length;i++)
+                info.add(arr_info[i]);
+        }else {
+            for (int i = 0; i < cat_arr.length; i++) {
+                if (cat_arr[i] == cat) {
+                    info.add(arr_info[i]);
+                }
+            }
+        }
+        return info;
     }
 
     public void checkSessionDashboard(){
