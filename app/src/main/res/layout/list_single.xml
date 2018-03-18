@@ -63,6 +63,8 @@
 
             <LinearLayout
                 android:id="@+id/cart_plus_minus_layout"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -97,18 +99,11 @@
                     android:id="@+id/distance_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:textAlignment="viewEnd"
                     android:paddingLeft="15dip"
-                    android:paddingRight="15dip"
                     android:text="1 km"
                     android:textSize="12dip"
                     android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/navigation_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_navigation_black_24dp" />
 
             </LinearLayout>
         </RelativeLayout>

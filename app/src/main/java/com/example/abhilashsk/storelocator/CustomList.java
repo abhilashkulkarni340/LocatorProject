@@ -25,15 +25,17 @@ public class CustomList extends ArrayAdapter<String>{
     private final ArrayList<String> shopName;
     private final ArrayList<String> location;
     private final ArrayList<String> category;
+    private final ArrayList<Integer> distance;
     Tracer gps;
     Double lat1,lat2,lon1,lon2;
     public CustomList(Activity context,
-                      ArrayList<String> shop,ArrayList<String> location,ArrayList<String> category) {
+                      ArrayList<String> shop,ArrayList<String> location,ArrayList<String> category,ArrayList<Integer> distance) {
         super(context, R.layout.list_single, shop);
         this.context = context;
         this.shopName = shop;
         this.location = location;
         this.category=category;
+        this.distance=distance;
 
     }
     @Override
@@ -46,6 +48,8 @@ public class CustomList extends ArrayAdapter<String>{
         txtTitle.setText(shopName.get(position));
         address.setText(location.get(position));
         category_txt.setText(category.get(position));
+        TextView dis_text=(TextView)rowView.findViewById(R.id.distance_text);
+        dis_text.setText(Integer.toString(distance.get(position))+" km");
         /*gps = new Tracer(view.getContext());
         lat1=gps.getLatitude();
         lon1=gps.getLongitude();
@@ -53,7 +57,7 @@ public class CustomList extends ArrayAdapter<String>{
         GeocodingLocation locationAddress = new GeocodingLocation();
         Bundle bundle = locationAddress.getAddressFromLocation(locations.get(i),
                 view.getApplicationContext());*/
-        ImageView nav = (ImageView) rowView.findViewById(R.id.navigation_image);
+        /*ImageView nav = (ImageView) rowView.findViewById(R.id.navigation_image);
         nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +66,7 @@ public class CustomList extends ArrayAdapter<String>{
                 intent.putExtra("destination_name_key",shopName.get(position));
                 view.getContext().startActivity(intent);
             }
-        });
+        });*/
 
         ImageView shop = (ImageView)rowView.findViewById(R.id.shop_icon);
         shop.setOnClickListener(new View.OnClickListener() {

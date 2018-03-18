@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +42,7 @@ public class GeocodingLocation {
                 Log.d("In finally","Geolocation: "+latitude+","+longitude);
             } else {
                 result = "Unable to get Latitude and Longitude for this location: "+locationAddress;
+                Toast.makeText(context,"Unable to get Latitude and Longitude for this location: "+locationAddress,Toast.LENGTH_LONG);
                 bundle.putString("latitude", "12.9416079");
                 bundle.putString("longitude","77.56688299999996");
                 Log.d("GEOLOCATION ERROR",result);

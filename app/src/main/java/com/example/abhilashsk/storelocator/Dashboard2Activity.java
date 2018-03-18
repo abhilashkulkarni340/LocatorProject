@@ -3,6 +3,7 @@ package com.example.abhilashsk.storelocator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,10 +49,17 @@ public class Dashboard2Activity extends AppCompatActivity
 
     ListView list1;
     CustomList adapter;
+    Double my_lat,my_lon;
     ArrayList<String> sn,loc,cat;
-    String[] shopnames = {"Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite","Mantri Square","Orion Mall","Chungs","IISc","CPRI"} ;
-    String[] locations = {"Basavangudi", "Banashankari", "Jayanagar", "Kormangala","Jalahalli","Malleshwaram","Yeshwanthpur","Malleshwaram,18th cross","CV Raman Road","Ashwath Nagar,Armane Nagar"};
-    String[] categories={"Food","Food","Groceries","Food","Groceries","Groceries","Food","Food","Groceries","Food"};
+    ArrayList<Integer> dis2;
+    String[] shopnames = {"Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite",
+            "Mantri Square","Orion Mall","Chungs","IISc","CPRI","Lulu","Reliance Fresh",
+    "Byraveshwara Rice Traders"} ;
+    String[] locations = {"Basavangudi", "Banashankari", "Jayanagar", "Kormangala","Jalahalli",
+            "Malleshwaram","Yeshwanthpur","Malleshwaram,18th cross", "CV Raman Road",
+            "Ashwath Nagar,Armane Nagar","MS Palya","509, Vidyaranyapura","MS Palya"};
+    String[] categories={"Food","Food","Groceries","Food","Groceries",
+            "Groceries","Food","Food","Groceries","Food","Groceries","Groceries","Food"};
     String[] category_types={"All","Food","Groceries"};
     Integer[] tabs_list={R.id.tab1,R.id.tab2,R.id.tab3};
     Integer[] listView_list={R.id.list2,R.id.list3,R.id.list4};
@@ -61,9 +69,9 @@ public class Dashboard2Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard2);
         checkSessionDashboard();
-        /*GPSManager gps = new GPSManager(
+        GPSManager gps = new GPSManager(
                 Dashboard2Activity.this);
-        gps.start();*/
+        gps.start();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -91,15 +99,59 @@ public class Dashboard2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TabHost host = (TabHost)findViewById(R.id.tab_host);
-        host.setup();
 
 
+        //Filtering by location
+        Tracer gps_for_filter = new Tracer(Dashboard2Activity.this);
+        if (gps_for_filter.getLocation() != null) {
+            my_lat = gps_for_filter.getLatitude();
+            my_lon = gps_for_filter.getLongitude();
+            Toast.makeText(this,"Your location is: "+ my_lat + " " + my_lon,Toast.LENGTH_LONG).show();;
+            Log.d("onCreate MarkersMap", "Your location is " + my_lat + " " + my_lon);
+        } else {
+            //gps.showSettingAlert();
+            my_lat = 12.942898;
+            my_lon = 77.56819659999996;
+            Toast.makeText(this,"Your location cannot be found",Toast.LENGTH_LONG).show();;
+            Log.d("onCreate MarkersMap", "Your location cannot be found");
+        }
+        Location loc1 = new Location("");
+        loc1.setLatitude(my_lat);
+        loc1.setLongitude(my_lon);
+        ArrayList<Float> dis=new ArrayList<>();
+        dis2=new ArrayList<>();
+        for(int i=0;i<shopnames.length;i++) {
 
-        final ArrayList<String> shopName = getInfo(shopnames);
-        final ArrayList<String> location = getInfo(locations);
-        final ArrayList<String> category = getInfo(categories);
 
+            GeocodingLocation locationAddress = new GeocodingLocation();
+            Bundle bundle = locationAddress.getAddressFromLocation(locations[i],
+                    getApplicationContext());
+            Double lat_for_filter = Double.parseDouble(bundle.getString("latitude"));
+            Double lon_for_filter = Double.parseDouble(bundle.getString("longitude"));
+            Log.d(shopnames[i], lat_for_filter + " " + lon_for_filter);
+
+            Location loc2 = new Location("");
+            loc2.setLatitude(lat_for_filter);
+            loc2.setLongitude(lon_for_filter);
+
+            float distanceInMeters = loc1.distanceTo(loc2);
+
+            Log.d("Distance from "+shopnames[i], "" + distanceInMeters / 1000);
+            dis.add(distanceInMeters/1000);
+            if(distanceInMeters/1000<=100){
+                dis2.add(Math.round(distanceInMeters/1000));
+            }
+        }
+
+        ListView list_for_dis=(ListView)findViewById(R.id.list_for_dis);
+        ArrayAdapter<Float> adapter2=new ArrayAdapter<Float>(this,
+                android.R.layout.simple_list_item_1,
+                dis);
+        list_for_dis.setAdapter(adapter2);
+
+        //Button to find shops by location
+        final ArrayList<String> shopName = getInfoForTabs(shopnames,categories,"All",dis);
+        final ArrayList<String> location = getInfoForTabs(locations,categories,"All",dis);
 
         FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         fab2.setImageResource(R.drawable.ic_room_black_24dp);
@@ -113,12 +165,17 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         });
 
-        for(int i=0;i<category_types.length;i++){
-            sn=getInfoForTabs(shopnames,categories,category_types[i]);
-            loc=getInfoForTabs(locations,categories,category_types[i]);
-            cat=getInfoForTabs(categories,categories,category_types[i]);
+        //Filtering by categories
+        TabHost host = (TabHost)findViewById(R.id.tab_host);
+        host.setup();
 
-            adapter=new CustomList(Dashboard2Activity.this,sn,loc,cat);
+        for(int i=0;i<category_types.length;i++){
+            sn=getInfoForTabs(shopnames,categories,category_types[i],dis);
+            loc=getInfoForTabs(locations,categories,category_types[i],dis);
+            cat=getInfoForTabs(categories,categories,category_types[i],dis);
+
+
+            adapter=new CustomList(Dashboard2Activity.this,sn,loc,cat,dis2);
             list1=(ListView)findViewById(listView_list[i]);
             list1.setAdapter(adapter);
 
@@ -127,6 +184,13 @@ public class Dashboard2Activity extends AppCompatActivity
             spec.setIndicator(category_types[i]);
             host.addTab(spec);
         }
+
+        TabHost.TabSpec spec = host.newTabSpec("Distance");
+        spec.setContent(R.id.tab4);
+        spec.setIndicator("Distance");
+        host.addTab(spec);
+
+
 
         /*CustomList adapter = new CustomList(Dashboard2Activity.this, shopName,location,category);
         list1=(ListView)findViewById(R.id.list2);
@@ -195,6 +259,9 @@ public class Dashboard2Activity extends AppCompatActivity
         super.onResume();
         Log.d("DASHBOARD","Dashboard2Activity resumed");
         checkSessionDashboard();
+        GPSManager gps = new GPSManager(
+                Dashboard2Activity.this);
+        gps.start();
     }
 
 
@@ -258,14 +325,15 @@ public class Dashboard2Activity extends AppCompatActivity
         return dynarr;
     }
 
-    public ArrayList<String> getInfoForTabs(String[] arr_info,String[] cat_arr,String cat){
+    public ArrayList<String> getInfoForTabs(String[] arr_info,String[] cat_arr,String cat,ArrayList<Float> distance){
         ArrayList<String> info=new ArrayList<>();
         if(cat=="All"){
             for(int i=0;i<cat_arr.length;i++)
-                info.add(arr_info[i]);
+                if(distance.get(i)<100)
+                    info.add(arr_info[i]);
         }else {
             for (int i = 0; i < cat_arr.length; i++) {
-                if (cat_arr[i] == cat) {
+                if (cat_arr[i] == cat && distance.get(i)<100) {
                     info.add(arr_info[i]);
                 }
             }
