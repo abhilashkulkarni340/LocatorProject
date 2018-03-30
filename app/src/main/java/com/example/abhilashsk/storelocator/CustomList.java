@@ -46,7 +46,8 @@ public class CustomList extends ArrayAdapter<String>{
         final TextView address = (TextView) rowView.findViewById(R.id.address_text);
         TextView category_txt=(TextView)rowView.findViewById(R.id.category_shp_list);
         txtTitle.setText(shopName.get(position));
-        address.setText(location.get(position));
+        int len=(location.get(position).length()<20)?location.get(position).length():20;
+        address.setText(location.get(position).substring(0,len)+"..");
         category_txt.setText(category.get(position));
         TextView dis_text=(TextView)rowView.findViewById(R.id.distance_text);
         dis_text.setText(Integer.toString(distance.get(position))+" km");

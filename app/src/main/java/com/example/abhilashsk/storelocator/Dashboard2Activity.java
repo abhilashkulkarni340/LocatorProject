@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ public class Dashboard2Activity extends AppCompatActivity
     Double my_lat,my_lon;
     ArrayList<String> sn,loc,cat;
     ArrayList<Integer> dis2,dis3;
+    ProgressBar progressBar;
     String[] shopnames = {"Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite",
             "Mantri Square","Orion Mall","Chungs","IISc","CPRI","Lulu","Reliance Fresh",
     "Byraveshwara Rice Traders"} ;
@@ -64,9 +66,9 @@ public class Dashboard2Activity extends AppCompatActivity
             "Ashwath Nagar,Armane Nagar","MS Palya","509, Vidyaranyapura","MS Palya"};
     String[] categories={"Food","Food","Groceries","Food","Groceries",
             "Groceries","Food","Food","Groceries","Food","Groceries","Groceries","Food"};
-    String[] category_types={"All","Food","Groceries"};
-    Integer[] tabs_list={R.id.tab1,R.id.tab2,R.id.tab3};
-    Integer[] listView_list={R.id.list2,R.id.list3,R.id.list4};
+    String[] category_types={"All"};
+    Integer[] tabs_list={R.id.tab1};
+    Integer[] listView_list={R.id.list2};
     SharedPreferences sharedpreferences;
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     ArrayList<String> storename,addresses,category,phonenumbers;
@@ -117,6 +119,9 @@ public class Dashboard2Activity extends AppCompatActivity
         host = (TabHost)findViewById(R.id.tab_host);
         host.setup();
 
+        progressBar = (ProgressBar)findViewById(R.id.progressBar3);
+        progressBar.setVisibility(View.VISIBLE);
+
         //Fetching data from FireStore
         storename=new ArrayList<>();
         addresses=new ArrayList<>();
@@ -129,6 +134,7 @@ public class Dashboard2Activity extends AppCompatActivity
                     Location loc3=new Location("");
                     Location myloc=new Location("");
                     ArrayList<Integer> dis4=new ArrayList<>();
+                    ArrayList<Float> dis5=new ArrayList<>();
 
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -160,6 +166,7 @@ public class Dashboard2Activity extends AppCompatActivity
                     loc3.setLatitude(latitudes.get(i));
                     loc3.setLongitude(longitudes.get(i));
                     dis4.add(Math.round(myloc.distanceTo(loc3)/1000));
+                    dis5.add(myloc.distanceTo(loc3)/1000);
                     Log.d("distances",""+myloc.distanceTo(loc3)/1000);
                 }
                 adapter=new CustomList(Dashboard2Activity.this,storename,addresses,category,dis4);
@@ -170,11 +177,33 @@ public class Dashboard2Activity extends AppCompatActivity
                 spec.setIndicator("All");
                 host.addTab(spec);
 
+
+
+
+                final ArrayList<String> shopName = getInfoForTabs(storename,category,"All",dis5);
+                final ArrayList<String> location = getInfoForTabs(storename,category,"All",dis5);
+
+                FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+                fab2.setImageResource(R.drawable.ic_room_black_24dp);
+                fab2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Dashboard2Activity.this,MarkersMapActivity.class);
+                        intent.putExtra("shopname_key",storename);
+                        intent.putExtra("address_key",addresses);
+                        intent.putExtra("latitude_key",latitudes);
+                        intent.putExtra("longitude_key",longitudes);
+                        startActivity(intent);
+                    }
+                });
+
+                progressBar.setVisibility(View.INVISIBLE);
+
             }
         });
 
         //Filtering by location
-        Tracer gps_for_filter = new Tracer(Dashboard2Activity.this);
+        /*Tracer gps_for_filter = new Tracer(Dashboard2Activity.this);
         if (gps_for_filter.getLocation() != null) {
             my_lat = gps_for_filter.getLatitude();
             my_lon = gps_for_filter.getLongitude();
@@ -215,21 +244,21 @@ public class Dashboard2Activity extends AppCompatActivity
             if(distanceInMeters/1000<=100){
                 dis2.add(Math.round(distanceInMeters/1000));
             }
-        }
+        }*/
 
-        ListView list_for_dis=(ListView)findViewById(R.id.list_for_dis);
+        /*ListView list_for_dis=(ListView)findViewById(R.id.list_for_dis);
         ArrayAdapter<Float> adapter2=new ArrayAdapter<Float>(this,
                 android.R.layout.simple_list_item_1,
                 dis);
-        list_for_dis.setAdapter(adapter2);
+        list_for_dis.setAdapter(adapter2);*/
 
         //Button to find shops by location
-        final ArrayList<String> shopName = getInfoForTabs(shopnames,categories,"All",dis);
-        final ArrayList<String> location = getInfoForTabs(locations,categories,"All",dis);
+        //final ArrayList<String> shopName = getInfoForTabs(shopnames,categories,"All",dis);
+        //final ArrayList<String> location = getInfoForTabs(locations,categories,"All",dis);
 
         FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
         fab2.setImageResource(R.drawable.ic_room_black_24dp);
-        fab2.setOnClickListener(new View.OnClickListener() {
+        /*fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Dashboard2Activity.this,MarkersMapActivity.class);
@@ -237,13 +266,13 @@ public class Dashboard2Activity extends AppCompatActivity
                 intent.putExtra("address_key",location);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //Filtering by categories
-        TabHost host = (TabHost)findViewById(R.id.tab_host);
-        host.setup();
+        /*TabHost host = (TabHost)findViewById(R.id.tab_host);
+        host.setup();*/
 
-        for(int i=0;i<category_types.length;i++){
+        /*for(int i=0;i<category_types.length;i++){
             sn=getInfoForTabs(shopnames,categories,category_types[i],dis);
             loc=getInfoForTabs(locations,categories,category_types[i],dis);
             cat=getInfoForTabs(categories,categories,category_types[i],dis);
@@ -257,12 +286,12 @@ public class Dashboard2Activity extends AppCompatActivity
             spec.setContent(tabs_list[i]);
             spec.setIndicator(category_types[i]);
             host.addTab(spec);
-        }
+        }*/
 
-        TabHost.TabSpec spec = host.newTabSpec("Distance");
+        /*TabHost.TabSpec spec = host.newTabSpec("Distance");
         spec.setContent(R.id.tab4);
         spec.setIndicator("Distance");
-        host.addTab(spec);
+        host.addTab(spec);*/
 
 
 
@@ -399,16 +428,16 @@ public class Dashboard2Activity extends AppCompatActivity
         return dynarr;
     }
 
-    public ArrayList<String> getInfoForTabs(String[] arr_info,String[] cat_arr,String cat,ArrayList<Float> distance){
+    public ArrayList<String> getInfoForTabs(ArrayList<String> arr_info,ArrayList<String> cat_arr,String cat,ArrayList<Float> distance){
         ArrayList<String> info=new ArrayList<>();
         if(cat=="All"){
-            for(int i=0;i<cat_arr.length;i++)
+            for(int i=0;i<cat_arr.size();i++)
                 if(distance.get(i)<10000)
-                    info.add(arr_info[i]);
+                    info.add(arr_info.get(i));
         }else {
-            for (int i = 0; i < cat_arr.length; i++) {
-                if (cat_arr[i] == cat && distance.get(i)<100) {
-                    info.add(arr_info[i]);
+            for (int i = 0; i < cat_arr.size(); i++) {
+                if (cat_arr.get(i) == cat && distance.get(i)<100) {
+                    info.add(arr_info.get(i));
                 }
             }
         }

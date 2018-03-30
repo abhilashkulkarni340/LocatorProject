@@ -26,6 +26,8 @@ public class MarkersMapActivity extends FragmentActivity implements OnMapReadyCa
     Tracer gps;
     ArrayList<String> shopnames;
     ArrayList<String> locations;
+    ArrayList<Double> latitudes;
+    ArrayList<Double> longitudes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,8 @@ public class MarkersMapActivity extends FragmentActivity implements OnMapReadyCa
         Intent intent=getIntent();
         shopnames=intent.getStringArrayListExtra("shopname_key");
         locations=intent.getStringArrayListExtra("address_key");
-
+        latitudes=(ArrayList<Double>)intent.getSerializableExtra("latitude_key");
+        longitudes=(ArrayList<Double>)intent.getSerializableExtra("longitude_key");
     }
 
     @Override
@@ -63,7 +66,7 @@ public class MarkersMapActivity extends FragmentActivity implements OnMapReadyCa
                     getApplicationContext());
             Double lat1 = Double.parseDouble(bundle.getString("latitude"));
             Double lon1 = Double.parseDouble(bundle.getString("longitude"));
-            LatLng loc = new LatLng(lat1, lon1);
+            LatLng loc = new LatLng(latitudes.get(i), longitudes.get(i));
             mMap.addMarker(new MarkerOptions().position(loc).title(shopnames.get(i)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }

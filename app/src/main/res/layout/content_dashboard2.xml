@@ -32,7 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="248dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,8 +44,7 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                ></TabWidget>
+                android:layout_height="40dp"></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -74,7 +75,7 @@
                     </ListView>
                 </LinearLayout>
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:id="@+id/tab2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -132,10 +133,25 @@
                         android:layout_height="match_parent">
 
                     </ListView>
-                </LinearLayout>
+                </LinearLayout>-->
             </FrameLayout>
         </LinearLayout>
     </TabHost>
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tab_host" />
     <!--<ListView
         android:id="@+id/list2"
         android:layout_width="0dp"
