@@ -36,17 +36,26 @@ import java.util.List;
 import android.Manifest;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.abhilashsk.storelocator.LoginActivity.MyPREFERENCES;
 
 public class Dashboard2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView list1;
+    public static final String USERNAMEKEY = "usernameKey";
+    public static final String NAME = "nameKey";
+    public static final String EMAIL = "emailKey";
+    private ListView list1;
+    TextView display_email;
     CustomList adapter;
     Double my_lat,my_lon;
     ArrayList<String> sn,loc,cat;
-    ArrayList<Integer> dis2;
+    ArrayList<Integer> dis2,dis3;
     String[] shopnames = {"Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite",
             "Mantri Square","Orion Mall","Chungs","IISc","CPRI","Lulu","Reliance Fresh",
     "Byraveshwara Rice Traders"} ;
@@ -59,6 +68,11 @@ public class Dashboard2Activity extends AppCompatActivity
     Integer[] tabs_list={R.id.tab1,R.id.tab2,R.id.tab3};
     Integer[] listView_list={R.id.list2,R.id.list3,R.id.list4};
     SharedPreferences sharedpreferences;
+    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    ArrayList<String> storename,addresses,category,phonenumbers;
+    ArrayList<Double> latitudes,longitudes;
+    String name,email,user;
+    TabHost host;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +84,13 @@ public class Dashboard2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        final String cart = sharedpreferences.getString("cartKey","");
+        user=sharedpreferences.getString(USERNAMEKEY,"");
+        name=sharedpreferences.getString(NAME,"");
+        email=sharedpreferences.getString(EMAIL,"");
+
+        final String cart = "0";
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.ic_shopping_cart_black_24dp);
@@ -94,7 +113,65 @@ public class Dashboard2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //
+        host = (TabHost)findViewById(R.id.tab_host);
+        host.setup();
 
+        //Fetching data from FireStore
+        storename=new ArrayList<>();
+        addresses=new ArrayList<>();
+        category=new ArrayList<>();
+        phonenumbers=new ArrayList<>();
+        latitudes=new ArrayList<>();
+        longitudes=new ArrayList<>();
+        db.collection("storedata")
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    Location loc3=new Location("");
+                    Location myloc=new Location("");
+                    ArrayList<Integer> dis4=new ArrayList<>();
+
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(DocumentSnapshot ds:queryDocumentSnapshots){
+                    storename.add(ds.getString("name"));
+                    addresses.add(ds.getString("address"));
+                    category.add(ds.getString("category"));
+                    phonenumbers.add(ds.getString("phone"));
+                    latitudes.add(ds.getDouble("latitude"));
+                    longitudes.add(ds.getDouble("longitude"));
+                    Log.d("store:",ds.getString("name"));
+                }
+                Tracer gps_for_filter = new Tracer(Dashboard2Activity.this);
+                if (gps_for_filter.getLocation() != null) {
+                    my_lat = gps_for_filter.getLatitude();
+                    my_lon = gps_for_filter.getLongitude();
+                    Toast.makeText(Dashboard2Activity.this,"Your location is: "+ my_lat + " " + my_lon,Toast.LENGTH_LONG).show();;
+                    Log.d("onCreate MarkersMap", "Your location is " + my_lat + " " + my_lon);
+                } else {
+                    //gps.showSettingAlert();
+                    my_lat = 13.1986348;
+                    my_lon = 77.70659279999995;
+                    Toast.makeText(Dashboard2Activity.this,"Your location cannot be found",Toast.LENGTH_LONG).show();;
+                    Log.d("onCreate MarkersMap", "Your location cannot be found");
+                }
+                myloc.setLatitude(my_lat);
+                myloc.setLongitude(my_lon);
+                for(int i=0;i<storename.size();i++){
+                    loc3.setLatitude(latitudes.get(i));
+                    loc3.setLongitude(longitudes.get(i));
+                    dis4.add(Math.round(myloc.distanceTo(loc3)/1000));
+                    Log.d("distances",""+myloc.distanceTo(loc3)/1000);
+                }
+                adapter=new CustomList(Dashboard2Activity.this,storename,addresses,category,dis4);
+                list1=(ListView)findViewById(listView_list[0]);
+                list1.setAdapter(adapter);
+                TabHost.TabSpec spec = host.newTabSpec("All");
+                spec.setContent(tabs_list[0]);
+                spec.setIndicator("All");
+                host.addTab(spec);
+
+            }
+        });
 
         //Filtering by location
         Tracer gps_for_filter = new Tracer(Dashboard2Activity.this);
@@ -113,6 +190,8 @@ public class Dashboard2Activity extends AppCompatActivity
         Location loc1 = new Location("");
         loc1.setLatitude(my_lat);
         loc1.setLongitude(my_lon);
+
+
         ArrayList<Float> dis=new ArrayList<>();
         dis2=new ArrayList<>();
         for(int i=0;i<shopnames.length;i++) {
@@ -324,7 +403,7 @@ public class Dashboard2Activity extends AppCompatActivity
         ArrayList<String> info=new ArrayList<>();
         if(cat=="All"){
             for(int i=0;i<cat_arr.length;i++)
-                if(distance.get(i)<100)
+                if(distance.get(i)<10000)
                     info.add(arr_info[i]);
         }else {
             for (int i = 0; i < cat_arr.length; i++) {

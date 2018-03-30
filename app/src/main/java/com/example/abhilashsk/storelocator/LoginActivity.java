@@ -22,8 +22,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String EXTRA_USERNAME = "com.example.abhilashsk.USERNAME";
-    public static final String EXTRA_PASSWORD = "com.example.abhilashsk.PASSWORD";
+    public static final String NAME = "nameKey";
+    public static final String EMAIL = "emailKey";
     final Validator valid = new Validator();
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String USERNAME = "usernameKey";
@@ -31,13 +31,14 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private ProgressBar progress;
+    String name,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         checkSessionLogin();
-
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
     }
 
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
         Log.d("LOGIN","LoginActivity resumed");
         checkSessionLogin();
+
     }
 
     public void sendMessage(View view){
@@ -63,16 +65,16 @@ public class LoginActivity extends AppCompatActivity {
                         String pass="";
                         for(DocumentSnapshot ds:queryDocumentSnapshots){
                             pass=ds.getString("password");
-                            Log.d("password1",ds.getString("password"));
-                            Log.d("password2",password);
+                            name=ds.getString("name");
+                            email=ds.getString("email");
                         }
 
                         if(pass.equals(password)){
-                            intent.putExtra(EXTRA_USERNAME,username);
-                            intent.putExtra(EXTRA_PASSWORD,password);
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(USERNAME,username);
                             editor.putString(PASSWORD,password);
+                            editor.putString(NAME,name);
+                            editor.putString(EMAIL,email);
                             editor.apply();
                             progress.setVisibility(View.INVISIBLE);
                             startActivity(intent);
