@@ -35,11 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 import android.Manifest;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static com.example.abhilashsk.storelocator.LoginActivity.MyPREFERENCES;
@@ -69,9 +64,9 @@ public class Dashboard2Activity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard2);
         checkSessionDashboard();
-        GPSManager gps = new GPSManager(
+        /*GPSManager gps = new GPSManager(
                 Dashboard2Activity.this);
-        gps.start();
+        gps.start();*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -259,9 +254,9 @@ public class Dashboard2Activity extends AppCompatActivity
         super.onResume();
         Log.d("DASHBOARD","Dashboard2Activity resumed");
         checkSessionDashboard();
-        GPSManager gps = new GPSManager(
+        /*GPSManager gps = new GPSManager(
                 Dashboard2Activity.this);
-        gps.start();
+        gps.start();*/
     }
 
 

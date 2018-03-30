@@ -12,19 +12,25 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = "com.example.abhilashsk.USERNAME";
     public static final String EXTRA_PASSWORD = "com.example.abhilashsk.PASSWORD";
-    final DatabaseHandler db = new DatabaseHandler(this);
     final Validator valid = new Validator();
     public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String Username = "usernameKey";
-    public static final String Password = "passwordKey";
-    public static final String CART = "cartKey";
+    public static final String USERNAME = "usernameKey";
+    public static final String PASSWORD = "passwordKey";
     SharedPreferences sharedpreferences;
+    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,25 +48,42 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view){
-        Intent intent = new Intent(this, Dashboard2Activity.class);
+        final Intent intent = new Intent(this, Dashboard2Activity.class);
         EditText username_text = (EditText) findViewById(R.id.username_login);
         EditText password_text = (EditText) findViewById(R.id.password_login);
-        String username = username_text.getText().toString();
-        String password = password_text.getText().toString();
+        progress=(ProgressBar)findViewById(R.id.progressBar2);
+        final String username = username_text.getText().toString();
+        final String password = password_text.getText().toString();
+        progress.setVisibility(View.VISIBLE);
+        db.collection("userdata").whereEqualTo("username",username)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        String pass="";
+                        for(DocumentSnapshot ds:queryDocumentSnapshots){
+                            pass=ds.getString("password");
+                            Log.d("password1",ds.getString("password"));
+                            Log.d("password2",password);
+                        }
 
-        intent.putExtra(EXTRA_USERNAME,username);
-        intent.putExtra(EXTRA_PASSWORD,password);
-
-        if(username.equals("admin")&&password.equals("admin")){
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(Username,"admin");
-            editor.putString(Password,"admin");
-            editor.putString(CART,"0");
-            editor.apply();
-            startActivity(intent);
-        }else{
-            Message("Login Unsuccessful! Try Again!");
-        }
+                        if(pass.equals(password)){
+                            intent.putExtra(EXTRA_USERNAME,username);
+                            intent.putExtra(EXTRA_PASSWORD,password);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(USERNAME,username);
+                            editor.putString(PASSWORD,password);
+                            editor.apply();
+                            progress.setVisibility(View.INVISIBLE);
+                            startActivity(intent);
+                        }else{
+                            progress.setVisibility(View.INVISIBLE);
+                            Toast.makeText(LoginActivity.this,"Login Unsuccessful",Toast.LENGTH_SHORT).show();
+                            Log.d("password1",pass);
+                            Log.d("password2",password);
+                        }
+                    }
+                });
     }
 
     public void Message(String message){
@@ -87,8 +110,8 @@ public class LoginActivity extends AppCompatActivity {
     public void checkSessionLogin(){
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         try{
-            String user = sharedpreferences.getString("usernameKey","");
-            String pass = sharedpreferences.getString("passwordKey","");
+            String user = sharedpreferences.getString(USERNAME,"");
+            String pass = sharedpreferences.getString(PASSWORD,"");
             if(!user.isEmpty()&&!pass.isEmpty()){
                 Intent intent = new Intent(this, Dashboard2Activity.class);
                 startActivity(intent);
