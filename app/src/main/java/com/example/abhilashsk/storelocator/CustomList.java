@@ -26,16 +26,18 @@ public class CustomList extends ArrayAdapter<String>{
     private final ArrayList<String> location;
     private final ArrayList<String> category;
     private final ArrayList<Integer> distance;
+    private final ArrayList<String> shopid;
     Tracer gps;
     Double lat1,lat2,lon1,lon2;
     public CustomList(Activity context,
-                      ArrayList<String> shop,ArrayList<String> location,ArrayList<String> category,ArrayList<Integer> distance) {
+                      ArrayList<String> shop,ArrayList<String> location,ArrayList<String> category,ArrayList<Integer> distance,ArrayList<String> shopid) {
         super(context, R.layout.list_single, shop);
         this.context = context;
         this.shopName = shop;
         this.location = location;
         this.category=category;
         this.distance=distance;
+        this.shopid=shopid;
 
     }
     @Override
@@ -76,6 +78,7 @@ public class CustomList extends ArrayAdapter<String>{
                 Intent intent = new Intent(view.getContext(),ShopDisplayActivity.class);
                 intent.putExtra("Address",location.get(position));
                 intent.putExtra("ShopName",shopName.get(position));
+                intent.putExtra("ShopId",shopid.get(position));
                 view.getContext().startActivity(intent);
             }
         });

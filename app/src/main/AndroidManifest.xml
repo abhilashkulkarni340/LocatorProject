@@ -7,8 +7,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo_for_app"
-        android:label="WINKLE"
+        android:icon="@mipmap/ic_launcher"
+        android:label="STORE LOCATOR"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -21,12 +21,12 @@
         </activity>
         <activity
             android:name=".Dashboard2Activity"
-            android:label="WINKLE"
+            android:label="STORE LOCATOR"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".RegisterActivity"
-            android:label="WINKLE" />
+            android:label="STORE LOCATOR" />
         <activity android:name=".ShopActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

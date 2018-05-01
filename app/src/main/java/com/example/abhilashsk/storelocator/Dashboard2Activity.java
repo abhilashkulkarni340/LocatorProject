@@ -58,20 +58,12 @@ public class Dashboard2Activity extends AppCompatActivity
     ArrayList<String> sn,loc,cat;
     ArrayList<Integer> dis2,dis3;
     ProgressBar progressBar;
-    String[] shopnames = {"Vidhyarthi Khana", "Oasis", "Meghana's Foods", "Truffles","Shop Rite",
-            "Mantri Square","Orion Mall","Chungs","IISc","CPRI","Lulu","Reliance Fresh",
-    "Byraveshwara Rice Traders"} ;
-    String[] locations = {"Basavangudi", "Banashankari", "Jayanagar", "Kormangala","Jalahalli",
-            "Malleshwaram","Yeshwanthpur","Malleshwaram,18th cross", "CV Raman Road",
-            "Ashwath Nagar,Armane Nagar","MS Palya","509, Vidyaranyapura","MS Palya"};
-    String[] categories={"Food","Food","Groceries","Food","Groceries",
-            "Groceries","Food","Food","Groceries","Food","Groceries","Groceries","Food"};
-    String[] category_types={"All"};
+
     Integer[] tabs_list={R.id.tab1};
     Integer[] listView_list={R.id.list2};
     SharedPreferences sharedpreferences;
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
-    ArrayList<String> storename,addresses,category,phonenumbers;
+    ArrayList<String> storename,addresses,category,phonenumbers,shopids;
     ArrayList<Double> latitudes,longitudes;
     String name,email,user;
     TabHost host;
@@ -129,6 +121,7 @@ public class Dashboard2Activity extends AppCompatActivity
         phonenumbers=new ArrayList<>();
         latitudes=new ArrayList<>();
         longitudes=new ArrayList<>();
+        shopids=new ArrayList<>();
         db.collection("storedata")
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     Location loc3=new Location("");
@@ -145,6 +138,7 @@ public class Dashboard2Activity extends AppCompatActivity
                     phonenumbers.add(ds.getString("phone"));
                     latitudes.add(ds.getDouble("latitude"));
                     longitudes.add(ds.getDouble("longitude"));
+                    shopids.add(ds.getString("id"));
                     Log.d("store:",ds.getString("name"));
                 }
                 Tracer gps_for_filter = new Tracer(Dashboard2Activity.this);
@@ -169,7 +163,7 @@ public class Dashboard2Activity extends AppCompatActivity
                     dis5.add(myloc.distanceTo(loc3)/1000);
                     Log.d("distances",""+myloc.distanceTo(loc3)/1000);
                 }
-                adapter=new CustomList(Dashboard2Activity.this,storename,addresses,category,dis4);
+                adapter=new CustomList(Dashboard2Activity.this,storename,addresses,category,dis4,shopids);
                 list1=(ListView)findViewById(listView_list[0]);
                 list1.setAdapter(adapter);
                 TabHost.TabSpec spec = host.newTabSpec("All");
@@ -180,8 +174,8 @@ public class Dashboard2Activity extends AppCompatActivity
 
 
 
-                final ArrayList<String> shopName = getInfoForTabs(storename,category,"All",dis5);
-                final ArrayList<String> location = getInfoForTabs(storename,category,"All",dis5);
+                /*final ArrayList<String> shopName = getInfoForTabs(storename,category,"All",dis5);
+                final ArrayList<String> location = getInfoForTabs(storename,category,"All",dis5);*/
 
                 FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
                 fab2.setImageResource(R.drawable.ic_room_black_24dp);
@@ -428,7 +422,7 @@ public class Dashboard2Activity extends AppCompatActivity
         return dynarr;
     }
 
-    public ArrayList<String> getInfoForTabs(ArrayList<String> arr_info,ArrayList<String> cat_arr,String cat,ArrayList<Float> distance){
+    /*public ArrayList<String> getInfoForTabs(ArrayList<String> arr_info,ArrayList<String> cat_arr,String cat,ArrayList<Float> distance){
         ArrayList<String> info=new ArrayList<>();
         if(cat=="All"){
             for(int i=0;i<cat_arr.size();i++)
@@ -442,7 +436,7 @@ public class Dashboard2Activity extends AppCompatActivity
             }
         }
         return info;
-    }
+    }*/
 
     public void checkSessionDashboard(){
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);

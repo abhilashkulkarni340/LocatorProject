@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 public class ShopDisplayActivity extends AppCompatActivity {
     String shopname;
-    String address;
+    String address,add;
+    String shopid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,12 +19,14 @@ public class ShopDisplayActivity extends AppCompatActivity {
         Intent intent=getIntent();
         shopname =intent.getStringExtra("ShopName");
         address=intent.getStringExtra("Address");
+        shopid=intent.getStringExtra("ShopId");
 
         TextView shop_name=(TextView)findViewById(R.id.shop_name_disp);
         shop_name.setText(shopname);
 
         TextView shop_address=(TextView)findViewById(R.id.shop_address_disp);
-        shop_address.setText(address);
+        add=(address.length()<20)?address:address.substring(0,19);
+        shop_address.setText(add+"..");
     }
 
     public void callFunction(View view) {
@@ -45,6 +48,7 @@ public class ShopDisplayActivity extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(),ShopActivity.class);
         intent.putExtra("Address",address);
         intent.putExtra("ShopName",shopname);
+        intent.putExtra("ShopId",shopid);
         view.getContext().startActivity(intent);
     }
 }

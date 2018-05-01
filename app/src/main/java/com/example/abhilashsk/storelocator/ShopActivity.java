@@ -17,18 +17,20 @@ public class ShopActivity extends AppCompatActivity {
     String[] weights = {"1 plate", "1 plate", "1 plate", "1 plate"} ;
     String[] ids={"0","1","2","3"};
     ListView list;
+    String shopname,address,shopid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
         Intent intent=getIntent();
-        String shopname=intent.getStringExtra("ShopName");
-        String address=intent.getStringExtra("Address");
+        shopname=intent.getStringExtra("ShopName");
+        address=intent.getStringExtra("Address");
+        shopid=intent.getStringExtra("ShopId");
 
         TextView shop_details=(TextView)findViewById(R.id.shop_details);
 
-        shop_details.setText("Order from "+shopname+", "+address);
+        shop_details.setText("Order from "+shopname+", "+address+", "+shopid);
 
         final ArrayList<String> items2 = getInfo(items);
         final ArrayList<String> prices2 = getInfo(prices);
@@ -47,6 +49,7 @@ public class ShopActivity extends AppCompatActivity {
                 intent.putExtra("bundle_cart_key",adapter.bundle_cart);
                 intent.putExtra("items_key",items2);
                 intent.putExtra("price_key",prices2);
+                intent.putExtra("shopid",shopid);
                 startActivity(intent);
             }
         });

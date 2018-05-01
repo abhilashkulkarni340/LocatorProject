@@ -61,11 +61,11 @@ public class MarkersMapActivity extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
 
         for(int i=0;i<shopnames.size();i++) {
-            GeocodingLocation locationAddress = new GeocodingLocation();
+            /*GeocodingLocation locationAddress = new GeocodingLocation();
             Bundle bundle = locationAddress.getAddressFromLocation(locations.get(i),
                     getApplicationContext());
             Double lat1 = Double.parseDouble(bundle.getString("latitude"));
-            Double lon1 = Double.parseDouble(bundle.getString("longitude"));
+            Double lon1 = Double.parseDouble(bundle.getString("longitude"));*/
             LatLng loc = new LatLng(latitudes.get(i), longitudes.get(i));
             mMap.addMarker(new MarkerOptions().position(loc).title(shopnames.get(i)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));

@@ -28,10 +28,12 @@ public class LoginActivity extends AppCompatActivity {
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String USERNAME = "usernameKey";
     public static final String PASSWORD = "passwordKey";
+    public static final String PHONENUMBER = "phoneNumber";
+    public static final String ADDRESS = "address";
     SharedPreferences sharedpreferences;
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private ProgressBar progress;
-    String name,email;
+    String name,email,phonenumber,address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
                             pass=ds.getString("password");
                             name=ds.getString("name");
                             email=ds.getString("email");
+                            phonenumber=ds.getString("phone");
+                            //address=ds.getString("address");
                         }
 
                         if(pass.equals(password)){
@@ -75,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString(PASSWORD,password);
                             editor.putString(NAME,name);
                             editor.putString(EMAIL,email);
+                            editor.putString(PHONENUMBER,phonenumber);
+                            //editor.putString(ADDRESS,address);
                             editor.apply();
                             progress.setVisibility(View.INVISIBLE);
                             startActivity(intent);
